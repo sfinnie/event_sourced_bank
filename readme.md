@@ -24,7 +24,7 @@ The [BankSystem](event_sourced_bank/bank_system.py) ties everything together.  I
 1. Clone this repo:
 
         $ cd /my/projects/dir
-        $ git clone 
+        $ git clone https://github.com/sfinnie/event_sourced_bank.git
         $ cd event_sourced_bank
 
 2. (optional but recommended): create a virtual environment:
@@ -35,7 +35,7 @@ The [BankSystem](event_sourced_bank/bank_system.py) ties everything together.  I
 3. Install dependencies
 
         $ python3 -m pip install -U pip
-        $ python 3 -m pip install eventsourcing pytest
+        $ python3 -m pip install eventsourcing pytest
 
 ## Running
 
