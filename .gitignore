@@ -1,0 +1,7 @@
+.DS_Store
+.config
+**/__pycache__/
+.pytest_cache
+.idea
+venv
+data/
