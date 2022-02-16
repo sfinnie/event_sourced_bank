@@ -11,15 +11,15 @@ def test_account_credit_debit():
     ac.debit(20)
     assert ac.balance == 0
 
-def test_bank_credit_debit():
-    bank = AccountService()
-    account_id = bank.create_account()
-    assert bank.get_balance(account_id) == 0
+def test_account_service_credit_debit():
+    svc = AccountService()
+    account_id = svc.create_account()
+    assert svc.get_balance(account_id) == 0
 
-    bank.credit_account(account_id, 30)
-    assert bank.get_balance(account_id) == 30
+    svc.credit_account(account_id, 30)
+    assert svc.get_balance(account_id) == 30
 
-    bank.debit_account(account_id, 20)
-    assert bank.get_balance(account_id) == 10
+    svc.debit_account(account_id, 20)
+    assert svc.get_balance(account_id) == 10
 
 
