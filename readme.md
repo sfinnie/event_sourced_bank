@@ -4,7 +4,7 @@ A "wide but shallow" example of using the Python [event sourcing library](https:
 
 ## Overview
 
-The domain model is simple. It comprises only 2 classes, both in the [domainmodel](event_sourced_bank/domainmodel.py) file.  `Account` models an trivial bank account as an event-sourced [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) Aggregate.  `Ledger` is an equally simple abstraction of a ledger, again modelled as a DDD Aggregate.  
+The domain model is simple. It comprises only 2 classes, both in the [domainmodel](event_sourced_bank/domainmodel.py) file.  `Account` models a trivial bank account as an event-sourced [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) Aggregate.  `Ledger` is an equally simple abstraction of a ledger, again modelled as a DDD Aggregate.  
 
 The idea is that all transactions on all accounts get recorded in the ledger:  
 
@@ -17,7 +17,7 @@ The `Account` and `Ledger` aggregates are implemented using the `eventsourcing` 
 
 Each aggregate is wrapped in a service.  The [AccountService](event_sourced_bank/account_service.py) uses the `eventsourcing` library's [Application](https://eventsourcing.readthedocs.io/en/latest/topics/application.html) class, and provides an API for creating/retrieving accounts and then acting on them.  The [LedgerService](event_sourced_bank/ledger_service.py) is implemented using the library's [ProcessApplication](https://eventsourcing.readthedocs.io/en/latest/topics/system.html).  Its purpose is to follow all transactions on all accounts, so a single ledger tracks the overall balance in the bank.
 
-The [BankSystem](event_sourced_bank/bank_system.py) ties everything together.  It wires the `AccountService` and `LedgerService` together, so transactions on `Account`s are recorded in the ledger `Ledger`.  There's a minimal [main](main.py) that creates a system and runs a few transactions through. 
+The [EventSourcedBank](event_sourced_bank/bank_system.py) class ties everything together.  It wires the `AccountService` and `LedgerService` together, so transactions on `Accounts` are recorded in the `Ledger`.  There's a minimal [main](main.py) that creates a system and runs a few transactions through. 
 
 ## Installation
 
