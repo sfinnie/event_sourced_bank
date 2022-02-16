@@ -1,5 +1,5 @@
 from eventsourcing.application import Application
-from event_sourced_bank.domainmodel import Account
+from event_sourced_bank.domain_model import Account
 
 
 class AccountService(Application):

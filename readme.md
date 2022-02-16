@@ -4,7 +4,7 @@ A "wide but shallow" example of using the Python [event sourcing library](https:
 
 ## Overview
 
-The domain model is simple. It comprises only 2 classes, both in the [domainmodel](event_sourced_bank/domainmodel.py) file.  `Account` models a trivial bank account as an event-sourced [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) Aggregate.  `Ledger` is an equally simple abstraction of a ledger, again modelled as a DDD Aggregate.  
+The domain model is simple. It comprises only 2 classes, both in the [domain model](event_sourced_bank/domain_model.py) file.  `Account` models a trivial bank account as an event-sourced [Domain-Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design) Aggregate.  `Ledger` is an equally simple abstraction of a ledger, again modelled as a DDD Aggregate.  
 
 The idea is that all transactions on all accounts get recorded in the ledger:  
 

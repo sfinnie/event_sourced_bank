@@ -1,7 +1,7 @@
 from eventsourcing.application import AggregateNotFound
 from eventsourcing.system import ProcessApplication
 from eventsourcing.dispatch import singledispatchmethod
-from event_sourced_bank.domainmodel import Account, Ledger
+from event_sourced_bank.domain_model import Account, Ledger
 import logging
 
 ledger_name = "General"

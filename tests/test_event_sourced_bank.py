@@ -1,4 +1,4 @@
-from event_sourced_bank.domainmodel import Account
+from event_sourced_bank.domain_model import Account
 from event_sourced_bank.account_service import AccountService
 
 def test_account_credit_debit():
