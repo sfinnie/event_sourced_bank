@@ -3,6 +3,8 @@ from event_sourced_bank.domain_model import Account
 
 
 class AccountService(Application):
+    # see discussion on snapshots in [readme](../readme.md#snapshots)
+    snapshotting_intervals = {Account: 50}
 
     def create_account(self):
         ac = Account()

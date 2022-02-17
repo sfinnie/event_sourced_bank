@@ -8,6 +8,9 @@ ledger_name = "General"
 
 
 class LedgerService(ProcessApplication):
+    # see discussion on snapshots in [readme](../readme.md#snapshots)
+    snapshotting_intervals = {Ledger: 50}
+
     @singledispatchmethod
     def policy(self, domain_event, process_event):
         """Default policy"""
