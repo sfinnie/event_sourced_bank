@@ -21,15 +21,16 @@ The [EventSourcedBank](event_sourced_bank/bank_system.py) class ties everything 
 
 ### Snapshots <a name="snapshots"></a>
 
-The `eventsourcing` lib reconstructs aggregates from the events that create and evolve them.  That's consistent with the fundamental notion of [event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html): store the events that change state over time, rather than storing the current state directly.  It can, however, give rise to a performance problem with *long-running aggregates*.  Each time an aggregate is retrieved - such as the calls to `repository.get(account_id)` in the [AccountService](event_sourced_bank/account_service.py) - the aggregate is re-constructed from its event history.  That history grown monotonically over time.  Reconstructing the aggregate therefore takes proportionally longer as the aggregate evolves.
+The `eventsourcing` lib reconstructs aggregates from the events that create and evolve them.  That's consistent with the fundamental notion of [event sourcing](https://martinfowler.com/eaaDev/EventSourcing.html): store the events that change state over time, rather than storing the current state directly.  It can, however, give rise to a performance problem with *long-running aggregates*.  Each time an aggregate is retrieved, it is re-constructed from its event history.  See, for example, the calls to `repository.get(account_id)` in the [AccountService](event_sourced_bank/account_service.py).  That history grows monotonically over time.  Reconstructing the aggregate therefore takes proportionally longer as the aggregate evolves.
 
 The library provides **snapshots** as a way to deal with this issue.  It's as the name suggests; snapshots store the aggregate's state at given points.  Re-constructing from a snapshot therefore removes the need to iterate over history prior to the snapshot being taken.  Snapshots are well explained in the [docs](https://eventsourcing.readthedocs.io/en/stable/topics/application.html#snapshotting) so not worth repeating here.  Suffice to say there are various options that cover the spectrum from simple defaults to highly configurable options.
 
-Given that this example intends to be "wide and shallow", it's appropriate to include the snapshotting construct.  It's equally appropriate to use the *simplest thing that could possibly work*.  Hence each of the services ([AccountService](event_sourced_bank/account_service.py), [LedgerService](event_sourced_bank/ledger_service.py)) employ [automatic snapshotting](https://eventsourcing.readthedocs.io/en/stable/topics/application.html#automatic-snapshotting).  That's enabled by a single line of code in each class; e.g. 
+Given that this example app intends to be "wide and shallow", it's appropriate to include the snapshotting construct.  It's equally appropriate to use the *simplest thing that could possibly work*.  Hence each of the services ([AccountService](event_sourced_bank/account_service.py), [LedgerService](event_sourced_bank/ledger_service.py)) employ [automatic snapshotting](https://eventsourcing.readthedocs.io/en/stable/topics/application.html#automatic-snapshotting).  That's enabled by a single line of code in each class; e.g. 
 
       class AccountService(Application):
          snapshotting_intervals = {Account: 50}
 
+That one line means a snapshot will be taken automatically every 50 events for each aggregate instance.
 
 ## Installation
 
