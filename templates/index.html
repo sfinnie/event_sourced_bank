@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Event Sourced Bank</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid p-5 bg-primary text-white text-center">
+  <h1>Event Sourced Bank</h1>
+  <p>A sample application using the Python <a class="text-white" href="https://github.com/pyeventsourcing/eventsourcing">eventsourcing</a> library</p>
+</div>
+  
+<div class="container mt-5">
+    <p>This example models a trivially simple bank.  It works as follows:</p>
+    <ul>
+        <li>Create accounts in the Accounts panel, then submit credit/debit transactions on them</li>
+        <li>In response, the Ledger updates automatically.  It shows the bank's overall balance, and the total number of transactions across all accounts</li>
+        <li>The Events shows the underlying events generated. This is the heart of the application; it&apos;s what makes it "event sourced"</li>
+    </ul>
+    <p>
+        More info on the eventsourcing library in the <a href="https://eventsourcing.readthedocs.io/en/stable/">docs</a>.
+        Source code for this application is <a href="https://github.com/sfinnie/event_sourced_bank">here</a>.
+    </p>
+    <div class="row">
+    <div class="col-sm-4">
+      <h3>Accounts</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Ledger</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Events</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
