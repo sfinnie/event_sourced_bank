@@ -48,7 +48,12 @@ That one line means a snapshot will be taken automatically every 50 events for e
 3. Install dependencies
 
         $ python3 -m pip install -U pip
-        $ python3 -m pip install eventsourcing pytest
+        $ python3 -m pip install eventsourcing pytest 
+
+   1. (optional): if you want to run the web app, there are extra dependencies
+
+        $ python3 -m pip install fastapi jinja2 uvicorn[standard]
+
 
 ## Running
 
