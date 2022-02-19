@@ -25,9 +25,29 @@ def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+@app.post("/search", response_class=HTMLResponse)
+def post_txn(request: Request,
+             search_term: str = Form(""),
+             portfolios: bool = Form(False),
+             funds: bool = Form(False),
+             benchmarks: bool = Form(False),
+             buckets: bool = Form(False),
+             asset_classes: bool = Form(False)):
+    import time
+    time.sleep(5.0)
+    return templates.TemplateResponse("ledger.html", {"request": request,
+                                                      "search_term": search_term,
+                                                      "portfolios": portfolios,
+                                                      "funds": funds,
+                                                      "benchmarks": benchmarks,
+                                                      "buckets": buckets,
+                                                      "asset_classes": asset_classes})
+
+
 @app.get("/js")
 def js_hello_world():
     return {"Hello": "World"}
+
 
 if __name__ == "__main__":
     logging.info("opening the bank")
@@ -50,7 +70,3 @@ if __name__ == "__main__":
     # account_svc.debit_account(ac2, 12)
     # assert ledger_svc.get_balance() == 50
     # logging.info(f"ledger status: balance {ledger_svc.get_balance()}, {ledger_svc.get_count()} transactions")
-
-    bank.stop()
-    logging.info("bank closed")
-
