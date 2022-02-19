@@ -18,11 +18,24 @@ templates = Jinja2Templates(directory="templates")
 # ...and start the bank system
 bank = EventSourcedBank()
 bank.start()
+account_svc = bank.get_account_service()
+ledger_svc = bank.get_ledger_service()
 
 
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.post("/create-account", response_class=HTMLResponse)
+def create_account(request: Request):
+    # import time
+    # time.sleep(1.0)
+    ac_id = account_svc.create_account()
+    return templates.TemplateResponse("account_list.html",
+                                      {"request": request,
+                                       "account_id": ac_id,
+                                       "account_balance": account_svc.get_balance(ac_id)})
 
 
 @app.post("/search", response_class=HTMLResponse)
