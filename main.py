@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import uvicorn
 
+from event_sourced_bank.account_service import AccountService
 from event_sourced_bank.bank_system import EventSourcedBank
 
 logging.basicConfig(level=logging.INFO)
@@ -31,11 +32,13 @@ def index(request: Request):
 def create_account(request: Request):
     # import time
     # time.sleep(1.0)
-    ac_id = account_svc.create_account()
+    account_svc.create_account()
+    ac_ids = AccountService.get_all_account_ids()
+    accounts = [{"id": ac_id, "balance": account_svc.get_balance(ac_id)} for ac_id in ac_ids]
+    logging.info(accounts)
     return templates.TemplateResponse("account_list.html",
                                       {"request": request,
-                                       "account_id": ac_id,
-                                       "account_balance": account_svc.get_balance(ac_id)})
+                                       "accounts": accounts})
 
 
 @app.post("/search", response_class=HTMLResponse)
