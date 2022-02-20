@@ -33,7 +33,7 @@ def create_account(request: Request):
     # import time
     # time.sleep(1.0)
     account_svc.create_account()
-    ac_ids = AccountService.get_all_account_ids()
+    ac_ids = account_svc.get_all_account_ids()
     accounts = [{"id": ac_id, "balance": account_svc.get_balance(ac_id)} for ac_id in ac_ids]
     logging.info(accounts)
     return templates.TemplateResponse("account_list.html",

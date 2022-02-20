@@ -1,3 +1,5 @@
+import logging
+
 from event_sourced_bank.domain_model import Account
 from event_sourced_bank.account_service import AccountService
 
@@ -26,11 +28,13 @@ def test_account_service_credit_debit():
 
 
 def test_account_service_holds_list_of_created_accounts():
-    accounts = []
+    new_accounts = []
     svc = AccountService()
     for i in range(5):
         ac_id = svc.create_account()
-        accounts.append(ac_id)
-    assert set(accounts) == set(AccountService.get_all_accounts())
+        new_accounts.append(ac_id)
+    set1 = set(new_accounts)
+    set2 = set(svc.get_all_account_ids())
+    assert set1 == set2
 
 
