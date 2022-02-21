@@ -1,0 +1,32 @@
+<form>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="selected-account">Account</label>
+        <select class="form-select" id="selected-account">
+          <option selected>Choose account</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" class="form-control" id="amount" placeholder="42">
+      </div>
+    </div>
+    <div class="col">
+      <button hx-post="/credit-account" hx-target="#account-list" hx-indicator="#submit-spinner">
+        Credit
+      </button>
+      <button hx-post="/debit-account" hx-target="#account-list" hx-indicator="#submit-spinner">
+        Debit
+      </button>
+    </div>
+  </div>
+</form>
+
+
+
