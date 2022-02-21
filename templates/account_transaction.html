@@ -1,12 +1,12 @@
 {% if accounts|length > 0 %}
 <form>
-  <div class="row">
+  <div class="row align-items-end">
     <div class="col">
       <div class="form-group">
         <label for="selected-account">Account</label>
         <select class="form-select" id="selected-account">
           {% for ac in accounts %}
-          <option>{{ ac["index"] }}</option>
+          <option value="{{ ac['id'] }}">{{ ac["index"] }}</option>
           {% endfor %}
         </select>
       </div>

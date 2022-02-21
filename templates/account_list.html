@@ -14,6 +14,8 @@
         {% endfor %}
     </table>
 {% endif %}
-<button hx-post="/create-account" hx-target="#accounts-panel" hx-indicator="#submit-spinner">
-Create new Account
-</button>
+<div class="d-flex justify-content-center">
+    <button hx-post="/create-account" hx-target="#accounts-panel" hx-indicator="#submit-spinner">
+        Create new Account
+    </button>
+</div>

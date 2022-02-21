@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import Optional, List, Dict
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -23,6 +23,13 @@ account_svc = bank.get_account_service()
 ledger_svc = bank.get_ledger_service()
 
 
+def get_accounts(account_svc:AccountService) -> List[Dict]:
+    ac_ids = account_svc.get_all_account_ids()
+    accounts = [{"index": idx, "id": id, "balance": account_svc.get_balance(id)} for idx, id in enumerate(ac_ids)]
+    logging.info(accounts)
+    return accounts
+
+
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
@@ -31,11 +38,9 @@ def index(request: Request):
 @app.post("/create-account", response_class=HTMLResponse)
 def create_account(request: Request):
     # import time
-    # time.sleep(1.0)
+    # time.sleep(3.0)
     account_svc.create_account()
-    ac_ids = account_svc.get_all_account_ids()
-    accounts = [{"index": idx, "id": id, "balance": account_svc.get_balance(id)} for idx, id in enumerate(ac_ids)]
-    logging.info(accounts)
+    accounts = get_accounts(account_svc)
     return templates.TemplateResponse("accounts_panel.html",
                                       {"request": request,
                                        "accounts": accounts})
