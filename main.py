@@ -50,7 +50,15 @@ def credit_account(request: Request,
                    account: str = Form(""),
                    amount: int = Form(0)):
     logging.info(f"credit id: {account}, amount: {amount}")
-    return "ok"
+    return "ok - credited"
+
+
+@app.post("/debit-account", response_class=HTMLResponse)
+def credit_account(request: Request,
+                   account: str = Form(""),
+                   amount: int = Form(0)):
+    logging.info(f"debit id: {account}, amount: {amount}")
+    return "ok - debited"
 
 
 @app.post("/search", response_class=HTMLResponse)

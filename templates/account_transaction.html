@@ -1,10 +1,10 @@
 {% if accounts|length > 0 %}
-    <form hx-post="/credit-account">
+    <form>
         <div class="row align-items-end">
             <div class="col">
                 <div class="form-group">
                     <label for="account">Account</label>
-                    <select class="form-select" id="account">
+                    <select class="form-select" name="account">
                         {% for ac in accounts %}
                             <option value="{{ ac['id'] }}">{{ ac["index"] }}</option>
                         {% endfor %}
@@ -14,17 +14,17 @@
             <div class="col">
                 <div class="form-group">
                     <label for="amount">Amount</label>
-                    <input type="number" class="form-control" id="amount" placeholder="42">
+                    <input type="number" class="form-control" name="amount" placeholder="42">
                 </div>
             </div>
             <div class="col">
-                <input type="submit" id="submit-button" value="Credit"/>
-                {#      <button type="submit" hx-post="/credit-account" hx-target="#account-list" hx-indicator="#submit-spinner">#}
-                {#        Credit#}
-                {#      </button>#}
-                {#      <button hx-post="/debit-account" hx-target="#account-list" hx-indicator="#submit-spinner">#}
-                {#        Debit#}
-                {#      </button>#}
+{#                <input type="submit" id="submit-button" value="Credit"/>#}
+                      <button type="submit" hx-post="/credit-account" hx-target="#ledger" hx-indicator="#submit-spinner">
+                        Credit
+                      </button>
+                      <button hx-post="/debit-account" hx-target="#ledger" hx-indicator="#submit-spinner">
+                        Debit
+                      </button>
             </div>
         </div>
     </form>
