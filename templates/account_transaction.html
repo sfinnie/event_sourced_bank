@@ -1,13 +1,13 @@
+{% if accounts|length > 0 %}
 <form>
   <div class="row">
     <div class="col">
       <div class="form-group">
         <label for="selected-account">Account</label>
         <select class="form-select" id="selected-account">
-          <option selected>Choose account</option>
-            {% for ac in accounts %}
-              <option>{{ ac["index"] }}</option>
-            {% endfor %}
+          {% for ac in accounts %}
+          <option>{{ ac["index"] }}</option>
+          {% endfor %}
         </select>
       </div>
     </div>
@@ -27,6 +27,7 @@
     </div>
   </div>
 </form>
+{% endif %}
 
 
 
