@@ -23,10 +23,9 @@ account_svc = bank.get_account_service()
 ledger_svc = bank.get_ledger_service()
 
 
-def get_accounts(account_svc:AccountService) -> List[Dict]:
+def get_accounts(account_svc: AccountService) -> List[Dict]:
     ac_ids = account_svc.get_all_account_ids()
     accounts = [{"index": idx, "id": id, "balance": account_svc.get_balance(id)} for idx, id in enumerate(ac_ids)]
-    logging.info(accounts)
     return accounts
 
 
@@ -44,6 +43,14 @@ def create_account(request: Request):
     return templates.TemplateResponse("accounts_panel.html",
                                       {"request": request,
                                        "accounts": accounts})
+
+
+@app.post("/credit-account", response_class=HTMLResponse)
+def credit_account(request: Request,
+                   account: str = Form(""),
+                   amount: int = Form(0)):
+    logging.info(f"credit id: {account}, amount: {amount}")
+    return "ok"
 
 
 @app.post("/search", response_class=HTMLResponse)
