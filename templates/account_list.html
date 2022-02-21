@@ -1,14 +1,23 @@
-<table class="table table-striped">
-    <tr>
-        <th>#</th>
-        <th>Account ID</th>
-        <th>Balance</th>
-    </tr>
-    {% for ac in accounts %}
+{% if accounts|length == 0 %}
+    <p>
+      No accounts created yet
+    </p>
+{% else -%}
+    <table class="table table-striped">
         <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ ac["id"] }}</td>
-            <td>{{ ac["balance"] }}</td>
+            <th>#</th>
+            <th>Account ID</th>
+            <th>Balance</th>
         </tr>
-    {% endfor %}
-</table>
+        {% for ac in accounts %}
+            <tr>
+                <td>{{ ac["index"] }}</td>
+                <td>{{ ac["id"] }}</td>
+                <td>{{ ac["balance"] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+<button hx-post="/create-account" hx-target="#accounts-panel" hx-indicator="#submit-spinner">
+Create new Account
+</button>

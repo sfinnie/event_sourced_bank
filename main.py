@@ -34,9 +34,9 @@ def create_account(request: Request):
     # time.sleep(1.0)
     account_svc.create_account()
     ac_ids = account_svc.get_all_account_ids()
-    accounts = [{"id": ac_id, "balance": account_svc.get_balance(ac_id)} for ac_id in ac_ids]
+    accounts = [{"index": idx, "id": id, "balance": account_svc.get_balance(id)} for idx, id in enumerate(ac_ids)]
     logging.info(accounts)
-    return templates.TemplateResponse("account_list.html",
+    return templates.TemplateResponse("accounts_panel.html",
                                       {"request": request,
                                        "accounts": accounts})
 

@@ -5,9 +5,9 @@
         <label for="selected-account">Account</label>
         <select class="form-select" id="selected-account">
           <option selected>Choose account</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
+            {% for ac in accounts %}
+              <option>{{ ac["index"] }}</option>
+            {% endfor %}
         </select>
       </div>
     </div>

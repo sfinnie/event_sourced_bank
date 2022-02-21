@@ -44,25 +44,8 @@
           <div class="card-header">
             <h3>Accounts</h3>
           </div>
-          <div class="card-body">
-            <br>
-
-            <!-- account list -->
-
-            <div id="account-list">
-              <p>
-                No accounts created yet
-              </p>
-            </div>
-            <button hx-post="/create-account" hx-target="#account-list" hx-indicator="#submit-spinner" >
-              Create new Account
-            </button>
-
-            <!-- Account transaction panel           -->
-
-            <div id="account-transactions">
-              {% include 'account_transaction.html' %}
-            </div>
+          <div id="accounts-card" class="card-body">
+            {% include 'accounts_panel.html' %}
           </div>
           <div id="submit-spinner" class="d-flex justify-content-center">
             <img class="htmx-indicator" src="/static/Spinner-5.gif"/>
