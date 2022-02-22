@@ -1,86 +1,49 @@
 {% extends "base.html" %}
 {% block title %}Index{% endblock %}
 {% block head %}
-{{ super() }}
+    {{ super() }}
 {% endblock %}
 
 {% block body %}
-<!-- header -->
-<div class="container p-3 bg-primary text-white text-center">
-  <h1>Event Sourced Bank</h1>
-  <p>
-    A sample application using the Python
-    <a class="text-white" href="https://github.com/pyeventsourcing/eventsourcing">eventsourcing</a> library
-  </p>
-</div>
-
-<div class="container mt-5">
-  <div class="col">
-    <div class="card" style="margin-bottom: 25px;">
-      <div class="card-body">
-        <p>This example models a trivially simple bank. It works as follows:</p>
-        <ul>
-          <li>Create accounts in the Accounts panel, then submit credit/debit transactions on them</li>
-          <li>In response, the Ledger updates automatically. It shows the bank's overall balance, and the total number
-            of transactions across all accounts
-          </li>
-          <li>The Events shows the underlying events generated. This is the heart of the application; it&apos;s what
-            makes it "event sourced"
-          </li>
-        </ul>
+    <!-- header -->
+    <div class="container p-3 bg-primary text-white text-center">
+        <h1>Event Sourced Bank</h1>
         <p>
-          More info on the eventsourcing library in the <a
-            href="https://eventsourcing.readthedocs.io/en/stable/">docs</a>.
-          Source code for this application is <a href="https://github.com/sfinnie/event_sourced_bank">here</a>.
+            A sample application using the Python
+            <a class="text-white" href="https://github.com/pyeventsourcing/eventsourcing">eventsourcing</a> library
         </p>
-      </div>
     </div>
-    <div class="row">
 
-      <!-- Accounts -->
+    <div class="container mt-5">
+        <div class="col">
 
-      <div class="col-lg-6">
-        <div class="card h-100">
-          <div class="card-header">
-            <h3>Accounts</h3>
-          </div>
-          <div id="accounts-card" class="card-body">
-            {% include 'accounts_panel.html' %}
-          </div>
-          <div id="submit-spinner" class="d-flex justify-content-center">
-            <img class="htmx-indicator" src="/static/Spinner-5.gif"/>
-          </div>
+            <!-- "About" box -->
+            <div class="card" style="margin-bottom: 25px;">
+                <div class="card-body">
+                    <p>This example models a trivially simple bank. It works as follows:</p>
+                    <ul>
+                        <li>Create accounts in the Accounts panel, then submit credit/debit transactions on them</li>
+                        <li>In response, the Ledger updates automatically. It shows the bank's overall balance, and the
+                            total number
+                            of transactions across all accounts
+                        </li>
+                        <li>The Events shows the underlying events generated. This is the heart of the application; it&apos;s
+                            what
+                            makes it "event sourced"
+                        </li>
+                    </ul>
+                    <p>
+                        More info on the eventsourcing library in the <a
+                            href="https://eventsourcing.readthedocs.io/en/stable/">docs</a>.
+                        Source code for this application is <a
+                            href="https://github.com/sfinnie/event_sourced_bank">here</a>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bank state - accounts, ledger, transactions, ... -->
+            {% include 'bank_state.html' %}
         </div>
-      </div>
-
-      <!-- Ledger -->
-
-      <div class="col-lg-3">
-        <div class="card h-100">
-          <div class="card-header">
-            <h3>Ledger</h3>
-          </div>
-          <div class="card-body" id="ledger">
-              {% include 'ledger_panel.html' %}
-          </div>
-        </div>
-      </div>
-
-      <!-- Events -->
-
-      <div class="col-lg-3">
-        <div class="card h-100">
-          <div class="card-header">
-            <h3>Events</h3>
-          </div>
-          <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
 {% endblock %}
 

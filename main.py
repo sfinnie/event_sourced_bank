@@ -25,26 +25,33 @@ account_svc = bank.get_account_service()
 ledger_svc = bank.get_ledger_service()
 
 
-def get_accounts(account_svc: AccountService) -> List[Dict]:
+def get_bank_state(account_svc: AccountService) -> List[Dict]:
     ac_ids = account_svc.get_all_account_ids()
     accounts = [{"index": idx, "id": id, "balance": account_svc.get_balance(id)} for idx, id in enumerate(ac_ids)]
     return accounts
 
 
+def render_bank_state(request: Request):
+    # import time
+    # time.sleep(3.0)
+    accounts = get_bank_state(account_svc)
+    return templates.TemplateResponse("bank_state.html",
+                                      {"request": request,
+                                       "accounts": accounts})
+
+
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    accounts = get_bank_state(account_svc)
+    return templates.TemplateResponse("index.html",
+                                      {"request": request,
+                                       "accounts": accounts})
 
 
 @app.post("/create-account", response_class=HTMLResponse)
 def create_account(request: Request):
-    import time
-    time.sleep(3.0)
     account_svc.create_account()
-    accounts = get_accounts(account_svc)
-    return templates.TemplateResponse("accounts_panel.html",
-                                      {"request": request,
-                                       "accounts": accounts})
+    return render_bank_state(request)
 
 
 @app.post("/credit-account", response_class=HTMLResponse)
@@ -52,21 +59,15 @@ def credit_account(request: Request,
                    account: str = Form(""),
                    amount: int = Form(0)):
     account_svc.credit_account(UUID(account), amount)
-    accounts = get_accounts(account_svc)
-    return templates.TemplateResponse("accounts_panel.html",
-                                      {"request": request,
-                                       "accounts": accounts})
+    return render_bank_state(request)
 
 
 @app.post("/debit-account", response_class=HTMLResponse)
-def credit_account(request: Request,
+def debit_account(request: Request,
                    account: str = Form(""),
                    amount: int = Form(0)):
     account_svc.debit_account(UUID(account), amount)
-    accounts = get_accounts(account_svc)
-    return templates.TemplateResponse("accounts_panel.html",
-                                      {"request": request,
-                                       "accounts": accounts})
+    return render_bank_state(request)
 
 
 if __name__ == "__main__":
