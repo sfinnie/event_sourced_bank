@@ -38,7 +38,7 @@ class LedgerService(ProcessApplication):
         #      the way the decorator works
         # logging.info(f"ledger updated: balance {self.get_balance()}, {self.get_count()} transactions")
 
-    def get_count(self):
+    def get_transaction_count(self):
         ledger_id = Ledger.create_id(ledger_name)
         try:
             ledger = self.repository.get(ledger_id)

@@ -48,13 +48,23 @@ That one line means a snapshot will be taken automatically every 50 events for e
 3. Install dependencies
 
         $ python3 -m pip install -U pip
-        $ python3 -m pip install eventsourcing pytest
+        $ python3 -m pip install eventsourcing pytest 
+
+4. (optional): if you want to run the web app (see below), there are extra dependencies
+
+         $ python3 -m pip install fastapi jinja2 uvicorn[standard] python-multipart
+
 
 ## Running
 
-There's a minimal, trivial, script to run the app:
+There's a minimal, trivial, script to create a bank and run some sample transactions through:
 
-    $ python3 main.py
+      $ python3 run_sample.py
+
+There's also a web-based app that allows accounts to be created and transacted on.  It shows the 
+ledger updating accordingly, and the events being generated in thr underlying system.  To run it:
+
+      $ python3 main.py
 
 ## Testing
 

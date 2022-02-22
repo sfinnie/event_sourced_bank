@@ -1,0 +1,21 @@
+{% if accounts|length > 0 %}
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
+            <th>Account ID</th>
+            <th>Balance</th>
+        </tr>
+        {% for ac in accounts %}
+            <tr>
+                <td>{{ ac["index"] }}</td>
+                <td>{{ ac["id"] }}</td>
+                <td>{{ ac["balance"] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+<div class="d-flex justify-content-center">
+    <button hx-post="/create-account" hx-target="#bank-state" hx-indicator="#submit-spinner">
+        Create new Account
+    </button>
+</div>
