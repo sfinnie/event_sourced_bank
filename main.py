@@ -33,8 +33,10 @@ def get_bank_state() -> Tuple:
 
 
 def render_bank_state(request: Request, template="bank_state.html"):
-    import time
-    time.sleep(1.0)
+    # For testing: uncomment the following to delay response, in order to
+    # ensure the UI shows the "in progress" spinner whilst waiting on response.
+    # import time
+    # time.sleep(1.0)
     accounts, balance, transaction_count = get_bank_state()
     return templates.TemplateResponse(template,
                                       {"request": request,
