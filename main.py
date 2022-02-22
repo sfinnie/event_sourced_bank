@@ -1,5 +1,5 @@
 import logging
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Tuple
 from uuid import UUID
 
 from fastapi import FastAPI, Request, Form
@@ -8,7 +8,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import uvicorn
 
-from event_sourced_bank.account_service import AccountService
 from event_sourced_bank.bank_system import EventSourcedBank
 
 logging.basicConfig(level=logging.INFO)
@@ -25,27 +24,28 @@ account_svc = bank.get_account_service()
 ledger_svc = bank.get_ledger_service()
 
 
-def get_bank_state(account_svc: AccountService) -> List[Dict]:
+def get_bank_state() -> Tuple:
     ac_ids = account_svc.get_all_account_ids()
     accounts = [{"index": idx, "id": id, "balance": account_svc.get_balance(id)} for idx, id in enumerate(ac_ids)]
-    return accounts
+    balance = ledger_svc.get_balance()
+    transaction_count = ledger_svc.get_transaction_count()
+    return accounts, balance, transaction_count
 
 
-def render_bank_state(request: Request):
+def render_bank_state(request: Request, template="bank_state.html"):
     # import time
     # time.sleep(3.0)
-    accounts = get_bank_state(account_svc)
-    return templates.TemplateResponse("bank_state.html",
+    accounts, balance, transaction_count = get_bank_state()
+    return templates.TemplateResponse(template,
                                       {"request": request,
-                                       "accounts": accounts})
+                                       "accounts": accounts,
+                                       "balance": balance,
+                                       "transaction_count": transaction_count})
 
 
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
-    accounts = get_bank_state(account_svc)
-    return templates.TemplateResponse("index.html",
-                                      {"request": request,
-                                       "accounts": accounts})
+    return render_bank_state(request, "index.html")
 
 
 @app.post("/create-account", response_class=HTMLResponse)

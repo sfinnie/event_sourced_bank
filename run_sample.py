@@ -27,4 +27,4 @@ assert ledger_svc.get_balance() == 50
 account_ids = account_svc.get_all_account_ids()
 logging.info(f"bank has {len(account_ids)} accounts")
 
-logging.info(f"ledger status: balance {ledger_svc.get_balance()}, {ledger_svc.get_count()} transactions")
+logging.info(f"ledger status: balance {ledger_svc.get_balance()}, {ledger_svc.get_transaction_count()} transactions")
