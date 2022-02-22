@@ -66,6 +66,8 @@ ledger updating accordingly, and the events being generated in thr underlying sy
 
       $ python3 main.py
 
+![Web app screenshot](docs/screenshot.png)
+
 ## Testing
 
 There are a few tests, more as examples than a comprehensive test suite at the moment.  To be enhanced.  To run:
