@@ -33,8 +33,8 @@ def get_bank_state() -> Tuple:
 
 
 def render_bank_state(request: Request, template="bank_state.html"):
-    # import time
-    # time.sleep(3.0)
+    import time
+    time.sleep(1.0)
     accounts, balance, transaction_count = get_bank_state()
     return templates.TemplateResponse(template,
                                       {"request": request,
