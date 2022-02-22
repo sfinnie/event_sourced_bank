@@ -18,7 +18,8 @@
         <div class="col" id="content-col">
             <!-- "About" box -->
             <div class="row">
-                <div class="col"> <!-- this is just for styling, so the transaction panel lines up with the "about" box -->
+                <div class="col">
+                    <!-- this is just for styling, so the transaction panel lines up with the "about" box -->
                     <div class="card" style="margin-bottom: 25px;">
                         <div class="card-body">
                             <p>This example models a trivially simple bank. It works as follows:</p>
@@ -50,7 +51,9 @@
             </div>
 
             <!-- Bank state - accounts, ledger, transactions, ... -->
-            {% include 'bank_state.html' %}
+            <div class="row" id="bank-state">
+                {% include 'bank_state.html' %}
+            </div>
         </div>
     </div>
 {% endblock %}
