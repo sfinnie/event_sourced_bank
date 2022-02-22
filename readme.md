@@ -66,6 +66,8 @@ ledger updating accordingly, and the events being generated in thr underlying sy
 
       $ python3 main.py
 
+The open your browser at [http://localhost:8000](http://localhost:8000)
+
 ![Web app screenshot](docs/screenshot.png)
 
 ## Testing
