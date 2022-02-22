@@ -18,13 +18,12 @@
                 </div>
             </div>
             <div class="col">
-{#                <input type="submit" id="submit-button" value="Credit"/>#}
-                      <button type="submit" hx-post="/credit-account" hx-target="#ledger" hx-indicator="#submit-spinner">
-                        Credit
-                      </button>
-                      <button hx-post="/debit-account" hx-target="#ledger" hx-indicator="#submit-spinner">
-                        Debit
-                      </button>
+                <button type="submit" hx-post="/credit-account" hx-target="#accounts-panel" hx-indicator="#submit-spinner">
+                    Credit
+                </button>
+                <button type="submit" hx-post="/debit-account" hx-target="#accounts-panel" hx-indicator="#submit-spinner">
+                    Debit
+                </button>
             </div>
         </div>
     </form>

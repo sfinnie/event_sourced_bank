@@ -1,5 +1,7 @@
 import logging
 from typing import Optional, List, Dict
+from uuid import UUID
+
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -49,16 +51,22 @@ def create_account(request: Request):
 def credit_account(request: Request,
                    account: str = Form(""),
                    amount: int = Form(0)):
-    logging.info(f"credit id: {account}, amount: {amount}")
-    return "ok - credited"
+    account_svc.credit_account(UUID(account), amount)
+    accounts = get_accounts(account_svc)
+    return templates.TemplateResponse("accounts_panel.html",
+                                      {"request": request,
+                                       "accounts": accounts})
 
 
 @app.post("/debit-account", response_class=HTMLResponse)
 def credit_account(request: Request,
                    account: str = Form(""),
                    amount: int = Form(0)):
-    logging.info(f"debit id: {account}, amount: {amount}")
-    return "ok - debited"
+    account_svc.credit_account(UUID(account), -amount)
+    accounts = get_accounts(account_svc)
+    return templates.TemplateResponse("accounts_panel.html",
+                                      {"request": request,
+                                       "accounts": accounts})
 
 
 @app.post("/search", response_class=HTMLResponse)
