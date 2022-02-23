@@ -11,7 +11,7 @@ The idea is that all transactions on all accounts get recorded in the ledger:
 * Each transaction on each account generates an event;
 * The ledger listens to those events, and is updated accordingly.
 
-The design and implementation is described [below](#implementation)
+The design and implementation is described [below](#implementation).
 
 ## Installation
 
