@@ -1,9 +1,8 @@
 from uuid import UUID, uuid5, NAMESPACE_URL
 
-from eventsourcing.application import AggregateNotFound
 from eventsourcing.system import ProcessApplication
 from eventsourcing.dispatch import singledispatchmethod
-from event_sourced_bank.domain_model import Account, Ledger
+from event_sourced_bank.domain_model import Account
 from eventsourcing.application import EventSourcedLog, LogEvent
 
 import logging
@@ -32,7 +31,7 @@ class TransactionLogService(ProcessApplication):
     @policy.register(Account.Credited)
     def add_credit_txn(self, domain_event, process_event) -> None:
         logging.info(f"domain event: type '{type(domain_event)}', value {domain_event}")
-        logging.info(f"process event: type '{type(process_event)}', value {process_event}")
+        # TODO: this isn't logging the Account ID, it's the event ID.
         logged_id = self.aggregate_log.trigger_event(account_id=domain_event.originator_id,
                                                      transaction_type=type(domain_event).__name__,
                                                      amount=domain_event.amount)
