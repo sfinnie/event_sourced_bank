@@ -22,3 +22,7 @@ class EventSourcedBank:
     def get_ledger_service(self):
         return self.runner.get(LedgerService)
 
+    def get_transaction_log_service(self):
+        return self.runner.get(TransactionLogService)
+
+

@@ -22,6 +22,7 @@ bank = EventSourcedBank()
 bank.start()
 account_svc = bank.get_account_service()
 ledger_svc = bank.get_ledger_service()
+transaction_log_svc = bank.get_transaction_log_service()
 
 
 def get_bank_state() -> Tuple:
@@ -29,7 +30,8 @@ def get_bank_state() -> Tuple:
     accounts = [{"index": idx, "id": id, "balance": account_svc.get_balance(id)} for idx, id in enumerate(ac_ids)]
     balance = ledger_svc.get_balance()
     transaction_count = ledger_svc.get_transaction_count()
-    return accounts, balance, transaction_count
+    transaction_log = transaction_log_svc.get_transactions()
+    return accounts, balance, transaction_count, transaction_log
 
 
 def render_bank_state(request: Request, template="bank_state.html"):
@@ -37,12 +39,13 @@ def render_bank_state(request: Request, template="bank_state.html"):
     # ensure the UI shows the "in progress" spinner whilst waiting on response.
     # import time
     # time.sleep(1.0)
-    accounts, balance, transaction_count = get_bank_state()
+    accounts, balance, transaction_count, transaction_log = get_bank_state()
     return templates.TemplateResponse(template,
                                       {"request": request,
                                        "accounts": accounts,
                                        "balance": balance,
-                                       "transaction_count": transaction_count})
+                                       "transaction_count": transaction_count,
+                                       "transaction_log": transaction_log})
 
 
 @app.get("/", response_class=HTMLResponse)

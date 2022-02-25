@@ -37,3 +37,7 @@ class TransactionLogService(ProcessApplication):
                                                    amount=domain_event.amount)
         logging.info(f"logged event: {event}")
         self.save(event)
+
+    def get_transactions(self):
+        return [{"id": 1, "amount": 42, "type": "Credit"},
+                {"id": 1, "amount": 42, "type": "Debit"}]
