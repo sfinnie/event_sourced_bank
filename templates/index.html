@@ -5,54 +5,58 @@
 {% endblock %}
 
 {% block body %}
-    <!-- header -->
-    <div class="container p-3 bg-primary text-white text-center">
-        <h1>Event Sourced Bank</h1>
-        <p>
-            A sample application using the Python
-            <a class="text-white" href="https://github.com/pyeventsourcing/eventsourcing">eventsourcing</a> library
-        </p>
-    </div>
+    <div class="vh-100">
+        <!-- header -->
+        <div class="container p-3 bg-primary text-white text-center">
+            <h1>Event Sourced Bank</h1>
+            <p>
+                A sample application using the Python
+                <a class="text-white" href="https://github.com/pyeventsourcing/eventsourcing">eventsourcing</a> library
+            </p>
+        </div>
 
-    <div class="container mt-5">
-        <div class="col" id="content-col">
-            <!-- "About" box -->
-            <div class="row">
-                <div class="col">
-                    <!-- this is just for styling, so the transaction panel lines up with the "about" box -->
-                    <div class="card" style="margin-bottom: 25px;">
-                        <div class="card-body">
-                            <p>This example models a trivially simple bank. It works as follows:</p>
-                            <ul>
-                                <li>Create accounts in the Accounts panel, then submit credit/debit transactions on them
-                                </li>
-                                <li>In response, the Ledger updates automatically. It shows the bank's overall balance,
-                                    and
-                                    the
-                                    total number
-                                    of transactions across all accounts
-                                </li>
-                                <li>The Events shows the underlying events generated. This is the heart of the
-                                    application;
-                                    it&apos;s
-                                    what
-                                    makes it "event sourced"
-                                </li>
-                            </ul>
-                            <p>
-                                More info on the eventsourcing library in the <a
-                                    href="https://eventsourcing.readthedocs.io/en/stable/">docs</a>.
-                                Source code for this application is <a
-                                    href="https://github.com/sfinnie/event_sourced_bank">here</a>.
-                            </p>
+        <div class="container mt-5">
+            <div class="col" id="content-col">
+                <!-- "About" box -->
+                <div class="row">
+                    <div class="col">
+                        <!-- this is just for styling, so the transaction panel lines up with the "about" box -->
+                        <div class="card" style="margin-bottom: 25px;">
+                            <div class="card-body">
+                                <p>This example models a trivially simple bank. It works as follows:</p>
+                                <ul>
+                                    <li>Create accounts in the Accounts panel, then submit credit/debit transactions on
+                                        them
+                                    </li>
+                                    <li>In response, the Ledger updates automatically. It shows the bank's overall
+                                        balance,
+                                        and
+                                        the
+                                        total number
+                                        of transactions across all accounts
+                                    </li>
+                                    <li>The Events shows the underlying events generated. This is the heart of the
+                                        application;
+                                        it&apos;s
+                                        what
+                                        makes it "event sourced"
+                                    </li>
+                                </ul>
+                                <p>
+                                    More info on the eventsourcing library in the <a
+                                        href="https://eventsourcing.readthedocs.io/en/stable/">docs</a>.
+                                    Source code for this application is <a
+                                        href="https://github.com/sfinnie/event_sourced_bank">here</a>.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Bank state - accounts, ledger, transactions, ... -->
-            <div class="row" id="bank-state">
-                {% include 'bank_state.html' %}
+                <!-- Bank state - accounts, ledger, transactions, ... -->
+                <div class="row" id="bank-state">
+                    {% include 'bank_state.html' %}
+                </div>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
     border-left: 3px solid #727cf5;
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
-    background: rgba(114, 124, 245, 0.09);
+    /*background: rgba(114, 124, 245, 0.09);*/
     /*margin: 0 auto;*/
     letter-spacing: 0.2px;
     position: relative;
@@ -15,6 +15,7 @@
     padding-bottom: 5px;
     list-style: none;
     text-align: left;
+    max-height: 400px;
     /*max-width: 40%;*/
 }
 
