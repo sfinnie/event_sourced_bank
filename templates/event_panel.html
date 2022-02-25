@@ -2,7 +2,7 @@
     <ul class="timeline">
         {% for txn in transaction_log %}
             <li class="event">
-                <h3>Account {{ txn.type }}: {{ txn.amount }}</h3>
+                <h3>Account {{ txn.type -}} {% if txn.type != "Creation" %}: {{ txn.amount }} {% endif %}</h3>
                 <p class="event-detail">{{ txn.timestamp }}</p>
                 <p class="event-detail">Account ID: {{ txn.account_id }} </p>
             </li>

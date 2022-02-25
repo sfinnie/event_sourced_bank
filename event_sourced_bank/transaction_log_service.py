@@ -28,13 +28,25 @@ class TransactionLogService(ProcessApplication):
     def policy(self, domain_event, process_event):
         """Default policy"""
 
+    @policy.register(Account.Created)
+    def add_credit_txn(self, domain_event, process_event) -> None:
+        event = self.transaction_log.trigger_event(account_id=domain_event.originator_id,
+                                                   transaction_type="Creation",
+                                                   amount=0)
+        self.save(event)
+
     @policy.register(Account.Credited)
     def add_credit_txn(self, domain_event, process_event) -> None:
-        logging.debug(f"domain event: type '{type(domain_event)}', value {domain_event}")
         event = self.transaction_log.trigger_event(account_id=domain_event.originator_id,
                                                    transaction_type="Credit",
                                                    amount=domain_event.amount)
-        logging.info(f"logged event: {event}")
+        self.save(event)
+
+    @policy.register(Account.Debited)
+    def add_credit_txn(self, domain_event, process_event) -> None:
+        event = self.transaction_log.trigger_event(account_id=domain_event.originator_id,
+                                                   transaction_type="Debit",
+                                                   amount=domain_event.amount)
         self.save(event)
 
     def get_transactions(self):
