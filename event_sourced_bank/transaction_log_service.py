@@ -30,14 +30,15 @@ class TransactionLogService(ProcessApplication):
 
     @policy.register(Account.Credited)
     def add_credit_txn(self, domain_event, process_event) -> None:
-        # logging.info(f"domain event: type '{type(domain_event)}', value {domain_event}")
-        # TODO: this isn't logging the Account ID, it's the event ID.
+        logging.debug(f"domain event: type '{type(domain_event)}', value {domain_event}")
         event = self.transaction_log.trigger_event(account_id=domain_event.originator_id,
-                                                   transaction_type=type(domain_event).__name__,
+                                                   transaction_type="Credit",
                                                    amount=domain_event.amount)
         logging.info(f"logged event: {event}")
         self.save(event)
 
     def get_transactions(self):
-        return [{"id": 1, "amount": 42, "type": "Credit"},
-                {"id": 1, "amount": 42, "type": "Debit"}]
+        txns = [{"id": txn.account_id,
+                 "amount": txn.amount,
+                 "type": txn.transaction_type} for txn in self.transaction_log.get()]
+        return txns
