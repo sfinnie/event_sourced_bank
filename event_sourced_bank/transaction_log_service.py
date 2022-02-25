@@ -38,7 +38,8 @@ class TransactionLogService(ProcessApplication):
         self.save(event)
 
     def get_transactions(self):
-        txns = [{"id": txn.account_id,
+        txns = [{"account_id": txn.account_id,
+                 "timestamp": txn.timestamp,
                  "amount": txn.amount,
                  "type": txn.transaction_type} for txn in self.transaction_log.get()]
         return txns

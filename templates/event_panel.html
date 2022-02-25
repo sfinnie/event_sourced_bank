@@ -1,7 +1,11 @@
-<ul>
-    {% for txn in transaction_log %}
-        <li>
-            {{ txn.id }} {{ txn.type }} {{ txn.amount }}
-        </li>
-    {% endfor %}
-</ul>
+{% if transaction_log|length > 0 %}
+    <ul class="timeline">
+        {% for txn in transaction_log %}
+            <li class="event">
+                <h3>Account {{ txn.type }}: {{ txn.amount }}</h3>
+                <p class="event-detail">{{ txn.timestamp }}</p>
+                <p class="event-detail">Account ID: {{ txn.account_id }} </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
