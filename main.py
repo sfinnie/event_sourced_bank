@@ -30,7 +30,7 @@ def get_bank_state() -> Tuple:
     accounts = [{"index": idx, "id": id, "balance": account_svc.get_balance(id)} for idx, id in enumerate(ac_ids)]
     balance = ledger_svc.get_balance()
     transaction_count = ledger_svc.get_transaction_count()
-    transaction_log = transaction_log_svc.get_transactions()
+    transaction_log = list(reversed(transaction_log_svc.get_transactions()))
     return accounts, balance, transaction_count, transaction_log
 
 
