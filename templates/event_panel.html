@@ -3,7 +3,7 @@
         {% for txn in transaction_log %}
             <li class="event">
                 <h3>Account {{ txn.type -}} {% if txn.type != "Creation" %}: {{ txn.amount }} {% endif %}</h3>
-                <p class="event-detail">{{ txn.timestamp }}</p>
+                <p class="event-detail">{{ txn.timestamp.strftime('%Y-%m-%d   %H:%M:%S') }}</p>
                 <p class="event-detail">Account ID: {{ txn.account_id }} </p>
             </li>
         {% endfor %}
