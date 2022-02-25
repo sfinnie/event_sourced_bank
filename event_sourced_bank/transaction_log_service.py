@@ -18,7 +18,7 @@ class TransactionLogService(ProcessApplication):
 
     def __init__(self, env=None) -> None:
         super().__init__(env=env)
-        self.aggregate_log = EventSourcedLog(
+        self.transaction_log = EventSourcedLog(
             events=self.events,
             originator_id=uuid5(NAMESPACE_URL, "/transactions"),
             logged_cls=AccountEvent,
@@ -30,10 +30,10 @@ class TransactionLogService(ProcessApplication):
 
     @policy.register(Account.Credited)
     def add_credit_txn(self, domain_event, process_event) -> None:
-        logging.info(f"domain event: type '{type(domain_event)}', value {domain_event}")
+        # logging.info(f"domain event: type '{type(domain_event)}', value {domain_event}")
         # TODO: this isn't logging the Account ID, it's the event ID.
-        logged_id = self.aggregate_log.trigger_event(account_id=domain_event.originator_id,
-                                                     transaction_type=type(domain_event).__name__,
-                                                     amount=domain_event.amount)
-        logging.info(f"logged_id: {logged_id}")
-        self.save(logged_id)
+        event = self.transaction_log.trigger_event(account_id=domain_event.originator_id,
+                                                   transaction_type=type(domain_event).__name__,
+                                                   amount=domain_event.amount)
+        logging.info(f"logged event: {event}")
+        self.save(event)
