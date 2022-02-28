@@ -15,6 +15,8 @@ class AccountEvent(LogEvent):
 
 
 class TransactionLogService(ProcessApplication):
+    """Listens for all account transaction events and
+       saves them into a log"""
 
     def __init__(self, env=None) -> None:
         super().__init__(env=env)

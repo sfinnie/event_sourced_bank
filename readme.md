@@ -11,7 +11,9 @@ The idea is that all transactions on all accounts get recorded in the ledger:
 * Each transaction on each account generates an event;
 * The ledger listens to those events, and is updated accordingly.
 
-The design and implementation is described [below](#implementation).
+All transactions are added to a transaction log, so the bank history is recorded.
+
+The implementation is described [below](#implementation).
 
 ## Installation
 
@@ -62,19 +64,19 @@ There are a few tests, more as examples than a comprehensive test suite at the m
 # Design and Implementation <a name="implementation"></a>
 
 The `Account` and `Ledger` aggregates are implemented using the `eventsourcing`
-library's [Aggregate](https://eventsourcing.readthedocs.io/en/latest/topics/domain.html)
-base class.
+library's [Aggregate](https://eventsourcing.readthedocs.io/en/latest/topics/domain.html) base class.
 
-Each aggregate is wrapped in a service.
-The [AccountService](event_sourced_bank/account_service.py) uses
-the `eventsourcing`
+Each aggregate is wrapped in a service.  The [AccountService](event_sourced_bank/account_service.py) uses the `eventsourcing`
 library's [Application](https://eventsourcing.readthedocs.io/en/latest/topics/application.html)
 class, and provides an API for creating/retrieving accounts and then acting on
 them. The [LedgerService](event_sourced_bank/ledger_service.py) is implemented
-using the
-library's [ProcessApplication](https://eventsourcing.readthedocs.io/en/latest/topics/system.html)
-. Its purpose is to follow all transactions on all accounts, so a single ledger
+using the library's [ProcessApplication](https://eventsourcing.readthedocs.io/en/latest/topics/system.html). Its purpose is to follow all transactions on all accounts, so a single ledger
 tracks the overall balance in the bank.
+
+The [Transaction Log](event_sourced_bank/transaction_log_service.py) is implemented using an [Event-Sourced Log](https://eventsourcing.readthedocs.io/en/stable/topics/application.html?highlight=Event%20Sourced%20Log#event-sourced-log).  Why not use another aggregate?  Two reasons:
+
+1. Accounts (and the ledger) are mutable.  In both cases, the balance changes as transactions are applied.  The Transactions themselves, though, are immutable.  That's a central pillar of event sourcing.  An Event-sourced log is a good match for that: it records each transaction as it happens.
+2. It fits well with the "wide and shallow" intent of this example.
 
 The [EventSourcedBank](event_sourced_bank/bank_system.py) class ties everything
 together. It wires the `AccountService` and `LedgerService` together, so
@@ -117,3 +119,6 @@ employ [automatic snapshotting](https://eventsourcing.readthedocs.io/en/stable/t
 That one line means a snapshot will be taken automatically every 50 events for
 each aggregate instance.
 
+## User Interface
+
+The UI exists only to bring the example to life.  It's helpful to see, for example, the ledger and transaction log update automatically as accounts are created and credit/debit transactions submitted.  The UI is implemented using [FastAPI](https://fastapi.tiangolo.com/), [jinja2](https://jinja.palletsprojects.com/en/3.0.x/) and [htmx](https://htmx.org/).  The combination of `FastAPI` and `jinja2` enables a pure-python web GUI.  `htmx` enables in-page updates without needing full-page reloads.  Styling and layout uses [bootstrap](https://getbootstrap.com/).  In combination, those components enable functional interface for exploring the underlying model.  All UI logic is contained in [main.py](main.py) as FastAPI handlers.  Views are defined in [templates/](templates).
