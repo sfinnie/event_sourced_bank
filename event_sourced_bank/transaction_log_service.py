@@ -31,7 +31,7 @@ class TransactionLogService(ProcessApplication):
         """Default policy"""
 
     @policy.register(Account.Created)
-    def add_credit_txn(self, domain_event, process_event) -> None:
+    def add_created_txn(self, domain_event, process_event) -> None:
         event = self.transaction_log.trigger_event(account_id=domain_event.originator_id,
                                                    transaction_type="Creation",
                                                    amount=0)
@@ -45,7 +45,7 @@ class TransactionLogService(ProcessApplication):
         self.save(event)
 
     @policy.register(Account.Debited)
-    def add_credit_txn(self, domain_event, process_event) -> None:
+    def add_debit_txn(self, domain_event, process_event) -> None:
         event = self.transaction_log.trigger_event(account_id=domain_event.originator_id,
                                                    transaction_type="Debit",
                                                    amount=domain_event.amount)
